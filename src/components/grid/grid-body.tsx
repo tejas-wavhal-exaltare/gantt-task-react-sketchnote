@@ -3,7 +3,7 @@ import { MemberBooking, Task } from "../../types/public-types";
 import { addToDate } from "../../helpers/date-helper";
 import styles from "./grid.module.css";
 
-const getMemberBookingRectProps = (task: { x1: any; x2: any; totalHours: number; y: number; index: number; height: number; }, memberBooking: { hoursBooked: number; }, columnWidth: any) => {
+const getMemberBookingRectProps = (task: { x1: any; x2: any; totalHours: number; y: number; index: number; height: number; }, memberBooking: { hoursBooked: number; }) => {
   const startX = task.x1; // Assuming x1 is the start position of the task
   const endX = task.x2; // Assuming x2 is the end position of the task
   const taskWidth = endX - startX;
