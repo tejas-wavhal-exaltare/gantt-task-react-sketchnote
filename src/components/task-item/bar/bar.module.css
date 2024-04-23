@@ -19,3 +19,9 @@
   user-select: none;
   stroke-width: 0;
 }
+
+.memberBooking {
+  fill: rgba(0, 123, 255, 0.5); /* Semi-transparent blue */
+  stroke: #007bff; /* Blue border */
+  border-width: 1px; /* 1px border width */
+}

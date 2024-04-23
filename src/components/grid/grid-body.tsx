@@ -1,7 +1,21 @@
 import React, { ReactChild } from "react";
-import { Task } from "../../types/public-types";
+import { MemberBooking, Task } from "../../types/public-types";
 import { addToDate } from "../../helpers/date-helper";
 import styles from "./grid.module.css";
+
+const getMemberBookingRectProps = (task: { x1: any; x2: any; totalHours: number; y: number; index: number; height: number; }, memberBooking: { hoursBooked: number; }, columnWidth: any) => {
+  const startX = task.x1; // Assuming x1 is the start position of the task
+  const endX = task.x2; // Assuming x2 is the end position of the task
+  const taskWidth = endX - startX;
+  const bookedWidth = (memberBooking.hoursBooked / task.totalHours) * taskWidth; // Calculate width based on hours booked
+  
+  return {
+    x: startX, // Position the rectangle at the start of the task
+    y: task.y + task.index * (task.height + 5), // Position vertically based on task's Y position and index
+    width: bookedWidth, // Width based on the booked hours
+    height: task.height, // Height to match the task bar's height
+  };
+};
 
 export type GridBodyProps = {
   tasks: Task[];
@@ -116,12 +130,37 @@ export const GridBody: React.FC<GridBodyProps> = ({
     }
     tickX += columnWidth;
   }
+
+  const renderMemberBookings = (task: any) => {
+    if (!task.memberBookings) return null;
+
+    return task.memberBookings.map((memberBooking : MemberBooking) => {
+      const { x, y, width, height } = getMemberBookingRectProps(task, memberBooking, columnWidth);
+      return (
+        <rect
+          key={`${task.id}-member-${memberBooking.memberId}`}
+          x={x}
+          y={y}
+          width={width}
+          height={height}
+          fill="rgba(0, 123, 255, 0.5)" // Example fill color, you can customize it
+          className="memberBooking"
+        />
+      );
+    });
+  };
+
   return (
     <g className="gridBody">
       <g className="rows">{gridRows}</g>
       <g className="rowLines">{rowLines}</g>
       <g className="ticks">{ticks}</g>
       <g className="today">{today}</g>
+      {tasks.map((task) => (
+        <g key={task.id}>
+          {renderMemberBookings(task)}
+        </g>
+      ))}
     </g>
   );
-};
+}

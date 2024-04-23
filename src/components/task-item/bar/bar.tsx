@@ -20,6 +20,24 @@ export const Bar: React.FC<TaskItemProps> = ({
     task.height
   );
   const handleHeight = task.height - 2;
+
+  const renderBookedHoursText = () => {
+
+    if (!task.memberBookings || task.memberBookings.length === 0) return null;
+
+    const totalBookedHours = task.memberBookings.reduce((sum, booking) => sum + booking.hoursBooked, 0);
+
+    const tooltipText = task.memberBookings.map(booking => `${booking.name}: ${booking.hoursBooked}h`).join('\n');
+    return (
+      <g>
+        <title>{tooltipText}</title>
+        <text x={task.x1 + 5} y={task.y + task.height / 2} fill="white">
+          {`${totalBookedHours}h booked`}
+        </text>
+      </g>
+    );
+  };
+
   return (
     <g className={styles.barWrapper} tabIndex={0}>
       <BarDisplay
@@ -36,6 +54,7 @@ export const Bar: React.FC<TaskItemProps> = ({
           isDateChangeable && onEventStart("move", task, e);
         }}
       />
+      {renderBookedHoursText()}
       <g className="handleGroup">
         {isDateChangeable && (
           <g>

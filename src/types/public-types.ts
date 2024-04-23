@@ -31,6 +31,7 @@ export interface Task {
   dependencies?: string[];
   hideChildren?: boolean;
   displayOrder?: number;
+  memberBookings?: MemberBooking[];
 }
 
 export interface EventOption {
@@ -142,4 +143,10 @@ export interface StylingOption {
 
 export interface GanttProps extends EventOption, DisplayOption, StylingOption {
   tasks: Task[];
+}
+
+export interface MemberBooking {
+  memberId: string;
+  name: string;
+  hoursBooked: number;
 }

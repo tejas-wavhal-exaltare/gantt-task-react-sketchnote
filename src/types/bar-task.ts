@@ -1,4 +1,4 @@
-import { Task, TaskType } from "./public-types";
+import { MemberBooking, Task, TaskType } from "./public-types";
 
 export interface BarTask extends Task {
   index: number;
@@ -18,6 +18,7 @@ export interface BarTask extends Task {
     progressColor: string;
     progressSelectedColor: string;
   };
+  memberBookings?: MemberBooking[];
 }
 
 export type TaskTypeInternal = TaskType | "smalltask";
