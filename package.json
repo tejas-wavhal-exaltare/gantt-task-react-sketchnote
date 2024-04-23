@@ -1,10 +1,9 @@
 {
-  "name": "gantt-task-react",
+  "name": "gantt-task-react-sketchnote",
   "version": "0.3.9",
   "description": "Interactive Gantt Chart for React with TypeScript.",
   "author": "MaTeMaTuK <maksym.vikarii@gmail.com>",
   "homepage": "https://github.com/MaTeMaTuK/gantt-task-react",
-  "license": "MIT",
   "repository": "MaTeMaTuK/gantt-task-react",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
