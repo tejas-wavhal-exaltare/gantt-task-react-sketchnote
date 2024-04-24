@@ -135,7 +135,7 @@ export const GridBody: React.FC<GridBodyProps> = ({
     if (!task.memberBookings) return null;
 
     return task.memberBookings.map((memberBooking : MemberBooking) => {
-      const { x, y, width, height } = getMemberBookingRectProps(task, memberBooking, columnWidth);
+      const { x, y, width, height } = getMemberBookingRectProps(task, memberBooking);
       return (
         <rect
           key={`${task.id}-member-${memberBooking.memberId}`}
