@@ -1,7 +1,7 @@
 import React, {
   useState,
   SyntheticEvent,
-  useRef,
+ 
   useEffect,
   useMemo,
 } from "react";
@@ -66,8 +66,8 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   onSelect,
   onExpanderClick,
 }) => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const taskListRef = useRef<HTMLDivElement>(null);
+  
+ 
   const [dateSetup, setDateSetup] = useState<DateSetup>(() => {
     const [startDate, endDate] = ganttDateRange(tasks, viewMode, preStepsCount);
     return { viewMode, dates: seedDates(startDate, endDate, viewMode) };
@@ -235,16 +235,14 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     if (!listCellWidth) {
       setTaskListWidth(0);
     }
-    if (taskListRef.current) {
-      setTaskListWidth(taskListRef.current.offsetWidth);
-    }
-  }, [taskListRef, listCellWidth]);
+    
+  }, [ listCellWidth]);
 
-  useEffect(() => {
-    if (wrapperRef.current) {
-      setSvgContainerWidth(wrapperRef.current.offsetWidth - taskListWidth);
-    }
-  }, [wrapperRef, taskListWidth]);
+  // useEffect(() => {
+  //   if (wrapperRef.current) {
+  //     setSvgContainerWidth(wrapperRef.current.offsetWidth - taskListWidth);
+  //   }
+  // }, [wrapperRef, taskListWidth]);
 
   useEffect(() => {
     if (ganttHeight) {
@@ -284,14 +282,17 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     };
 
     // subscribe if scroll is necessary
-    wrapperRef.current?.addEventListener("wheel", handleWheel, {
-      passive: false,
-    });
+    // setTimeout(()=>{
+    //   wrapperRef?.current?.addEventListener("wheel", handleWheel, {
+    //     passive: false,
+    //   });
+    // },10)
+   
     return () => {
-      wrapperRef.current?.removeEventListener("wheel", handleWheel);
+      // wrapperRef?.current?.removeEventListener("wheel", handleWheel);
     };
   }, [
-    wrapperRef,
+  
     scrollY,
     scrollX,
     ganttHeight,
@@ -437,13 +438,11 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     fontFamily,
     fontSize,
     tasks: barTasks,
-    locale,
-    headerHeight,
+    locale, 
     scrollY,
     ganttHeight,
     horizontalContainerClass: styles.horizontalContainer,
     selectedTask,
-    taskListRef,
     setSelectedTask: handleSelectedTask,
     onExpanderClick: handleExpanderClick,
     TaskListHeader,
@@ -455,7 +454,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
         className={styles.wrapper}
         onKeyDown={handleKeyDown}
         tabIndex={0}
-        ref={wrapperRef}
+       
       >
         {listCellWidth && <TaskList {...tableProps} />}
         <TaskGantt
