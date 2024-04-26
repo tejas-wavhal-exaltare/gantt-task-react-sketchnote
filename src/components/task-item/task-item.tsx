@@ -21,6 +21,7 @@ export type TaskItemProps = {
     selectedTask: BarTask,
     event?: React.MouseEvent | React.KeyboardEvent
   ) => any;
+  dueDate?: Date;
 };
 
 export const TaskItem: React.FC<TaskItemProps> = props => {
@@ -79,9 +80,20 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
       return task.x1 + width + arrowIndent * +hasChild + arrowIndent * 0.2;
     }
   };
+  console.log("🚀 ~ getX ~ getX:", getX())
 
+  function formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'long' });
+    const year = date.getFullYear();
+    return `${day} ${month} ${year}`;
+  }
+  
   return (
     <g
+      className="demo"
+      style={{position: "relative"}}
       onKeyDown={e => {
         switch (e.key) {
           case "Delete": {
@@ -109,17 +121,24 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
     >
       {taskItem}
       <text
-        x={getX()}
-        y={task.y + taskHeight * 0.5}
-        className={
-          isTextInside
-            ? style.barLabel
-            : style.barLabel && style.barLabelOutside
-        }
-        ref={textRef}
-      >
-        {task.name}
-      </text>
+    x={getX()}
+    y={task.y + taskHeight * 0.5}
+    className={
+      isTextInside
+        ? style.barLabel
+        : style.barLabel && style.barLabelOutside
+    }
+    ref={textRef}
+  >
+    {task?.name}
+    {task?.dueDate && (
+      <tspan x={getX()} y={task.y + taskHeight * 0.5 + 20} fill="red">
+      Due: {formatDate(task.dueDate.toString())}
+    </tspan>
+    )}
+  </text>
     </g>
   );
 };
+
+

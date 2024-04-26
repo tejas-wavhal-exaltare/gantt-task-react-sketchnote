@@ -18,6 +18,7 @@ export interface BarTask extends Task {
     progressColor: string;
     progressSelectedColor: string;
   };
+  dueDate: Date;
 }
 
 export type TaskTypeInternal = TaskType | "smalltask";
